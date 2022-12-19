@@ -1,11 +1,19 @@
+// importing files
+
 import express from "express";
 import dotenv from "dotenv";
+import cors from "cors";
+import bodyParser from "body-parser";
 
 import Connection from "./database/db.js";
 
 dotenv.config();
-
+// defining fuctions to call then later
 const app = express();
+app.use(bodyParser.json({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
+app.use('/',router);
 const PORT = 8000;
 
 const username = process.env.DB_USERNAME;
