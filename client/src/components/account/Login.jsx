@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import { TextField, Box, Button, Typography, styled } from '@mui/material';
 import { Route } from 'react-router-dom';
 
@@ -80,7 +79,7 @@ const Login = ({ isUserAuthenticated }) => {
     //const navigate = useNavigate();
     // const { setAccount } = useContext(DataContext);
 
-    const imageURL = 'https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png';
+    const imageURL = 'https://avatars.githubusercontent.com/u/121079079?s=400&u=bedecd1472dc04375a1eb674c8ffe2412a13b379&v=4';
 
     useEffect(() => {
         showError(false);
