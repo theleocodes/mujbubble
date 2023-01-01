@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Box, Button, Typography, styled } from '@mui/material';
-import { Route } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from 'react';
 
+import { TextField, Box, Button, Typography, styled } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { API } from '../../service/api';
-// import { DataContext } from '../../context/DataProvider';
+import { DataContext } from '../../context/DataProvider';
 
 const Component = styled(Box)`
     width: 400px;
@@ -76,10 +76,10 @@ const Login = ({ isUserAuthenticated }) => {
     const [error, showError] = useState('');
     const [account, toggleAccount] = useState('login');
 
-    //const navigate = useNavigate();
-    // const { setAccount } = useContext(DataContext);
+    const navigate = useNavigate();
+    const { setAccount } = useContext(DataContext);
 
-    const imageURL = 'https://avatars.githubusercontent.com/u/121079079?s=400&u=bedecd1472dc04375a1eb674c8ffe2412a13b379&v=4';
+    const imageURL = 'https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png';
 
     useEffect(() => {
         showError(false);
@@ -100,11 +100,11 @@ const Login = ({ isUserAuthenticated }) => {
 
             sessionStorage.setItem('accessToken', `Bearer ${response.data.accessToken}`);
             sessionStorage.setItem('refreshToken', `Bearer ${response.data.refreshToken}`);
-            //setAccount({ name: response.data.name, username: response.data.username });
+            setAccount({ name: response.data.name, username: response.data.username });
             
             isUserAuthenticated(true)
             setLogin(loginInitialValues);
-            //navigate('/');
+            navigate('/');
         } else {
             showError('Something went wrong! please try again later');
         }
