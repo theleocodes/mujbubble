@@ -1,33 +1,34 @@
+//here route is used for api purpose, its not api but route is end point of api
+// suppose : "facebook.com/users" so here facebook.com is api url and /users is end point; end point is always change. so according end point we decide which api to be called.
 import express from 'express';
 
-// import { createPost, updatePost, deletePost, getPost, getAllPosts } from '../controller/post-controller.js';
-// import { uploadImage, getImage } from '../controller/image-controller.js';
-// import { newComment, getComments, deleteComment } from '../controller/comment-controller.js';
-import { loginUser, signupUser, logoutUser } from '../controller/user-controller.js';
-//import { authenticateToken, createNewToken } from '../controller/jwt-controller.js';
+import { signupUser,loginUser } from '../controller/user-controller.js';
+import { uploadImage, getImage } from '../controller/image-controller.js';
+import { createPost, getAllPosts, getPost, updatePost, deletePost } from '../controller/post-controller.js';
+import { authenticateToken } from '../controller/jwt-controller.js';
+import { newComment, getComments, deleteComment } from '../controller/comment-controller.js';
 
-// import upload from '../utils/upload.js';
+import uploads from '../utils/uploads.js';
 
 const router = express.Router();
 
-router.post('/login', loginUser);
-router.post('/signup', signupUser);
-router.post('/logout', logoutUser);
+router.post('/signup',signupUser); //here signup is a endpoint of api and signupUser is api
+router.post('/login',loginUser);
 
-// router.post('/token', createNewToken);
+router.post('/file/upload',upload.single('file'), uploadImage);
+//generally router take 3 arguments 
+//here second argument is called as middlewear whose info is wrote in utils/upload.js
+router.get('/file/:filename', getImage);
 
-// router.post('/create', authenticateToken, createPost);
-// router.put('/update/:id', authenticateToken, updatePost);
-// router.delete('/delete/:id', authenticateToken, deletePost);
+router.post('/create', authenticateToken ,createPost);
+router.get('/posts', authenticateToken, getAllPosts);
+router.get('/post/:id', authenticateToken, getPost);
+router.put('/update/:id', authenticateToken, updatePost);
+router.delete('/delete/:id', authenticateToken, deletePost);
 
-// router.get('/post/:id', authenticateToken, getPost);
-// router.get('/posts', authenticateToken, getAllPosts);
-
-// router.post('/file/upload', upload.single('file'), uploadImage);
-// router.get('/file/:filename', getImage);
-
-// router.post('/comment/new', authenticateToken, newComment);
-// router.get('/comments/:id', authenticateToken, getComments);
-// router.delete('/comment/delete/:id', authenticateToken, deleteComment);
+router.post('/comment/new', authenticateToken, newComment);
+router.get('/comments/:id', authenticateToken, getComments);
+router.delete('/comments/delete/:id', authenticateToken, deleteComment);
 
 export default router;
+
