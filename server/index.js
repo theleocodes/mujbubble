@@ -1,22 +1,27 @@
-// importing files
+import express from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import bodyParser from 'body-parser';
 
-import express from "express";
-import dotenv from "dotenv";
-import cors from "cors";
-import bodyParser from "body-parser";
+//components
+import Connection from './database/db.js';
+import Router from './routes/routes.js';
 
-import Connection from "./database/db.js";
 
 dotenv.config();
-// defining fuctions to call then later
+
 const app = express();
+
+app.use(cors());
 app.use(bodyParser.json({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors());
-app.use('/',router);
-const PORT = 8000;
+app.use('/', Router);
 
+
+const PORT = 8000;
 const username = process.env.DB_USERNAME;
 const password = process.env.DB_PASSWORD;
-app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
+
 Connection(username, password);
+
+app.listen(PORT, () => console.log(`Server is running successfully on PORT ${PORT}`));
